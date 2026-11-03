@@ -65,7 +65,21 @@
     .welcome-dialog{background:linear-gradient(145deg,#fff,#fff0f8 70%,#ffe1f1);border-color:#f0aad0}
     @keyframes shine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
   .reset-progress{flex:1;min-width:125px;cursor:pointer;color:#9b557b;background:linear-gradient(145deg,#fff7fb,#fde6f2);border-color:#efc2d9;font:inherit;text-align:center;transition:transform .18s,box-shadow .18s,background .18s}.reset-progress strong{display:block;font-size:22px;line-height:1.35}.reset-progress small{display:block;color:#9b557b;font-size:11px;font-weight:700}.reset-progress:hover{background:linear-gradient(145deg,#ffeaf5,#f9d6e9);transform:translateY(-2px);box-shadow:0 7px 16px #d4509420}.reset-progress:focus-visible{outline:3px solid #e889bd;outline-offset:2px}
-</style>
+    .friend-builder{margin:14px 0;padding:17px;border:1px solid #efb4d5;border-radius:20px;background:linear-gradient(145deg,#fff,#fff0f8);box-shadow:0 10px 26px #d72c8b18}
+    .builder-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}.builder-heading h3{margin:0;color:#85245f;font-size:16px}.builder-heading p{margin:4px 0 0;color:#986b8b;font-size:12px;line-height:1.8}.builder-next{flex:none;border:0;border-radius:12px;padding:9px 13px;background:linear-gradient(120deg,#f52c9a,#d92d9b);color:#fff;font:inherit;font-size:12px;font-weight:800;box-shadow:0 5px 14px #db268a44}
+    .builder-equation{display:flex;justify-content:center;align-items:center;gap:10px;margin:16px 0 12px;direction:rtl;font-size:24px;font-weight:800}.builder-slot,.builder-vowel,.builder-result{display:grid;place-items:center;min-width:58px;min-height:56px;padding:5px 10px;border:2px dashed #e99ac5;border-radius:14px;background:#fff;color:#87235f}.builder-slot{min-width:100px;color:#bd78a1;font-size:13px}.builder-slot.filled{border-style:solid;background:#ffe2f2;color:#982569}.builder-plus,.builder-equals{color:#ca5b9a}.builder-result{border:0;background:#ffe9f5;color:#bd267e}.builder-choices{display:flex;justify-content:center;flex-wrap:wrap;gap:9px}.builder-choice{touch-action:none;user-select:none;min-width:52px;min-height:48px;border:1px solid #eca9ce;border-radius:13px;background:linear-gradient(145deg,#fff,#ffe4f2);color:#7d245d;font:inherit;font-size:23px;font-weight:800;box-shadow:0 4px 11px #d72c8b1c;cursor:grab}.builder-choice:active{cursor:grabbing}.builder-choice.dragging{opacity:.55}.builder-slot.over{background:#ffd8ed;box-shadow:0 0 0 4px #f52c9a22}.builder-feedback{min-height:23px;margin:8px 0 0;text-align:center;font-size:13px;font-weight:800;color:#9a648d}.builder-feedback.good{color:#228567}.builder-feedback.try{color:#c04483}
+    @media(max-width:480px){.friend-builder{padding:13px}.builder-heading{align-items:flex-start;flex-direction:column}.builder-equation{gap:7px;font-size:20px}.builder-slot{min-width:84px;font-size:11px}.builder-next{align-self:flex-end}}    /* رابط ساده: فقط تمرین ساخت ترکیب دیده شود */
+    .hero,.stats,.star-rule,.levels,.practice,.section-head,.table-wrap,.footnote,.top-note,#welcome-dialog{display:none!important}
+    .shell{max-width:760px;padding-top:18px}.header{margin-bottom:12px}
+    .top-credits{margin:0 auto 18px;max-width:760px;padding:8px 12px;font-size:11px;box-shadow:none}
+    .friend-builder{margin:0 auto;max-width:700px;padding:clamp(18px,4vw,30px);border-radius:24px;box-shadow:0 14px 38px #d72c8b20}
+    .builder-heading{display:block;text-align:center}.builder-heading h3{font-size:22px}.builder-heading p{max-width:440px;margin:8px auto 0;font-size:15px;line-height:2}
+    .builder-next{display:block;margin:15px auto 0;padding:10px 20px;font-size:14px}
+    .builder-equation{min-height:94px;margin:20px 0 17px;gap:14px;font-size:30px}
+    .builder-slot,.builder-vowel{min-width:78px;min-height:76px;border-radius:18px;font-size:25px}.builder-slot{min-width:120px;font-size:15px}.builder-result{min-width:72px;min-height:68px;font-size:30px}
+    .builder-choices{gap:12px}.builder-choice{min-width:64px;min-height:64px;border-radius:18px;font-size:30px;box-shadow:0 6px 15px #d72c8b24}
+    .builder-feedback{min-height:30px;margin-top:15px;font-size:16px}
+    @media(max-width:480px){.shell{padding:12px 12px 28px}.top-credits{gap:4px 10px;font-size:10px}.builder-heading h3{font-size:20px}.builder-heading p{font-size:14px}.builder-equation{gap:8px;font-size:25px}.builder-slot,.builder-vowel{min-width:64px;min-height:66px}.builder-slot{min-width:98px;font-size:12px}.builder-result{min-width:60px;min-height:60px;font-size:25px}.builder-choice{min-width:58px;min-height:58px}}</style>
 </head>
 <body>
 <dialog class="welcome-dialog" id="welcome-dialog"><div class="dialog-sparkle">✨🌸✨</div><h2>به دنیای دوستیِ نشانه‌ها خوش آمدی!</h2><p>یک سطح انتخاب کن، ترکیب‌ها را بخوان و با جواب‌های درست ستاره جمع کن. روی خانه‌های جدول هم بزن تا صدای ترکیب را بشنوی.</p><div class="dialog-credits"><strong>آموزگار: خانم فرج الله زاده</strong><span>دبستان شهید قزوینی بابلسر</span><span>طراح: زهرا عزیزی (مامانِ نوراجون ^_^)</span></div><button type="button" id="start-learning">بزن بریم! 🌟</button></dialog>
@@ -80,6 +94,12 @@
     <div class="question"><small id="prompt">صدای نشانه را پیدا کن</small><strong id="target">بَ</strong></div><div class="answers" id="answers"></div></div><div class="feedback" id="feedback" role="status"></div><button class="next" id="next">سؤال بعدی ←</button>
   </section>
   <div class="section-head"><div><h3>جدول دوستی</h3><p>روی خانه‌ها بزن و ترکیب‌ها را تمرین کن.</p></div><span class="tag">تمرین آزاد</span></div>
+  <section class="friend-builder" id="friend-builder" aria-labelledby="builder-title" dir="rtl">
+  <div class="builder-heading"><div><h3 id="builder-title">ترکیب را بساز</h3><p id="builder-prompt">نشانهٔ درست را بکش کنار «ا» تا ترکیب ساخته شود. (می‌توانی روی نشانه هم بزنی.)</p></div><button type="button" class="builder-next" id="builder-next">تمرین بعدی</button></div>
+  <div class="builder-equation" aria-live="polite"><span class="builder-slot" id="builder-slot">نشانه را اینجا بگذار</span><span class="builder-plus">+</span><span class="builder-vowel" id="builder-vowel">ا</span><span class="builder-equals">=</span><strong class="builder-result" id="builder-result">؟</strong></div>
+  <div class="builder-choices" id="builder-choices" aria-label="نشانه‌ها برای انتخاب"></div>
+  <p class="builder-feedback" id="builder-feedback" role="status"></p>
+</section>
   <div class="table-wrap"><table class="friend-table" id="friend-table"></table></div>
   <p class="footnote">آفرین که تمرین می‌کنی! 🌟</p>
 </main>
@@ -96,7 +116,24 @@
   function makeCombo(c,v){if(c==='ا')return v.mark==='ا'?'آ':v.mark==='و'?'او':v.mark==='ی'?'ای':'ا'+v.mark;return v.mark==='ا'?c+'ا':v.mark==='و'?c+'و':v.mark==='ی'?c+'ی':c+v.mark}
   function combos(){return (level==='base'?base:pro).flatMap(c=>vowels.map(v=>({text:makeCombo(c,v),letter:c,vowel:v})))}
   function renderTable(){const cs=pro;let html='<thead><tr><th>نشانه</th>'+vowels.map(v=>`<th>${v.label}</th>`).join('')+'</tr></thead><tbody>';for(const c of cs)html+=`<tr><th>${c}</th>${vowels.map(v=>`<td><button type="button" data-combo="${makeCombo(c,v)}">${makeCombo(c,v)}</button></td>`).join('')}</tr>`;$('friend-table').innerHTML=html}
-  function chooseOptions(correct,pool){const opts=[correct];while(opts.length<4){const candidate=pool[Math.floor(Math.random()*pool.length)];if(candidate!==correct&&!opts.includes(candidate))opts.push(candidate)}return opts.sort(()=>Math.random()-.5)}
+  function initFriendBuilder(){
+    const consonants=['ب','پ','ت','ث','ج','چ','ح','خ','د','ذ','ر','ز','ژ','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ک','گ','ل','م','ن','ه','و','ی'];
+    let wanted='ب', lockedBuilder=false;
+    const slot=$('builder-slot'), choices=$('builder-choices');
+    function nextBuilder(){
+      lockedBuilder=false; wanted=consonants[Math.floor(Math.random()*consonants.length)];
+      const distractors=[]; while(distractors.length<3){const c=consonants[Math.floor(Math.random()*consonants.length)];if(c!==wanted&&!distractors.includes(c))distractors.push(c)}
+      $('builder-vowel').textContent='\u0627'; $('builder-result').textContent=wanted+'\u0627'; $('builder-prompt').textContent='\u062a\u0631\u06a9\u06cc\u0628 \u00ab'+wanted+'\u0627\u00bb \u0631\u0627 \u0628\u0633\u0627\u0632: \u0646\u0634\u0627\u0646\u0647\u0654 \u00ab'+wanted+'\u00bb \u0631\u0627 \u06a9\u0646\u0627\u0631 \u00ab\u0627\u00bb \u0628\u06af\u0630\u0627\u0631.'; slot.textContent='نشانه را اینجا بگذار';slot.classList.remove('filled','over');
+      $('builder-feedback').textContent='';$('builder-feedback').className='builder-feedback';
+      choices.innerHTML=[wanted,...distractors].sort(()=>Math.random()-.5).map(c=>'<button type="button" class="builder-choice" draggable="true" data-letter="'+c+'" aria-label="نشانهٔ '+c+'؛ برای انتخاب بزن یا بکش">'+c+'</button>').join('');
+    }
+    function place(letter){if(lockedBuilder)return;lockedBuilder=true;slot.textContent=letter;slot.classList.add('filled');$('builder-result').textContent=letter+'ا';const ok=letter===wanted;$('builder-feedback').textContent=ok?'آفرین! '+letter+' را کنار ا گذاشتی و «'+letter+'ا» ساختی.':'این نشانه ترکیب خواسته‌شده را نمی‌سازد. دوباره تمرین کن!';$('builder-feedback').className='builder-feedback '+(ok?'good':'try');if(!ok){setTimeout(nextBuilder,1400)}}
+    choices.addEventListener('click',e=>{const b=e.target.closest('.builder-choice');if(b)place(b.dataset.letter)});
+    choices.addEventListener('dragstart',e=>{const b=e.target.closest('.builder-choice');if(b){e.dataTransfer.setData('text/plain',b.dataset.letter);e.dataTransfer.effectAllowed='move';b.classList.add('dragging')}});
+    choices.addEventListener('dragend',e=>{const b=e.target.closest('.builder-choice');if(b)b.classList.remove('dragging')});
+    slot.addEventListener('dragover',e=>{e.preventDefault();slot.classList.add('over')});slot.addEventListener('dragleave',()=>slot.classList.remove('over'));slot.addEventListener('drop',e=>{e.preventDefault();slot.classList.remove('over');place(e.dataTransfer.getData('text/plain'))});
+    $('builder-next').addEventListener('click',nextBuilder);nextBuilder();
+  }  function chooseOptions(correct,pool){const opts=[correct];while(opts.length<4){const candidate=pool[Math.floor(Math.random()*pool.length)];if(candidate!==correct&&!opts.includes(candidate))opts.push(candidate)}return opts.sort(()=>Math.random()-.5)}
   function makeQuestion(){locked=false;$('feedback').textContent='';$('feedback').className='feedback';$('next').textContent='سؤال بعدی ←';const pool=combos().map(x=>x.text);let correct,prompt,target,optionPool=pool,optionLabel=x=>x;
     if(level==='pro'&&mode==='word'){const item=words[Math.floor(Math.random()*words.length)];correct=item.part;target=item.word;prompt='کدام ترکیب در این واژه هست؟';$('game-title').textContent='ترکیب را در واژه پیدا کن';$('game-hint').textContent='واژه را بخوان و یکی از ترکیب‌هایش را انتخاب کن.'}
     else if(mode==='missing'){const item=combos()[Math.floor(Math.random()*combos().length)];correct=item.vowel.mark;target=item.text+' = '+item.letter+' + □';optionPool=vowels.map(v=>v.mark);optionLabel=x=>vowels.find(v=>v.mark===x)?.label||x;prompt='کدام نشانه جای خالی را کامل می‌کند؟';$('game-title').textContent='جای خالی را پر کن';$('game-hint').textContent='نشانهٔ درست را انتخاب کن تا ترکیب کامل شود.'}
@@ -107,7 +144,7 @@
   document.querySelectorAll('.level').forEach(b=>b.addEventListener('click',()=>{level=b.dataset.level;document.querySelectorAll('.level').forEach(x=>x.classList.toggle('active',x===b));if(level==='base'&&mode==='word')mode='match';document.querySelectorAll('.mode-btn').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));renderTable();makeQuestion()}));
   document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.mode==='word'&&level==='base'){level='pro';document.querySelectorAll('.level').forEach(x=>x.classList.toggle('active',x.dataset.level==='pro'))}mode=b.dataset.mode;document.querySelectorAll('.mode-btn').forEach(x=>x.classList.toggle('active',x===b));makeQuestion()}));
   $('answers').addEventListener('click',e=>{const b=e.target.closest('.answer');if(b)answer(b)});$('next').addEventListener('click',makeQuestion);$('friend-table').addEventListener('click',e=>{const b=e.target.closest('[data-combo]');if(b){document.querySelectorAll('[data-combo]').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')}});
-  $('reset-progress').addEventListener('click',()=>{if(!window.confirm('پیشرفت ذخیره‌شده پاک شود؟'))return;data={score:0,streak:0,stars:0,answered:0,wrong:0};try{localStorage.removeItem('doosti-progress')}catch{}renderStats();makeQuestion();$('feedback').textContent='پیشرفت پاک شد؛ از نو شروع کنیم!';$('feedback').className='feedback';});renderStats();renderTable();makeQuestion();const welcome=$('welcome-dialog');$('start-learning').addEventListener('click',()=>welcome.close());if(welcome.showModal)welcome.showModal();
+  $('reset-progress').addEventListener('click',()=>{if(!window.confirm('پیشرفت ذخیره‌شده پاک شود؟'))return;data={score:0,streak:0,stars:0,answered:0,wrong:0};try{localStorage.removeItem('doosti-progress')}catch{}renderStats();makeQuestion();$('feedback').textContent='پیشرفت پاک شد؛ از نو شروع کنیم!';$('feedback').className='feedback';});renderStats();renderTable();makeQuestion();initFriendBuilder();const welcome=$('welcome-dialog');$('start-learning').addEventListener('click',()=>welcome.close());
 })();
 </script>
 </body>

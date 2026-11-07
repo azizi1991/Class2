@@ -117,20 +117,32 @@
   function combos(){return (level==='base'?base:pro).flatMap(c=>vowels.map(v=>({text:makeCombo(c,v),letter:c,vowel:v})))}
   function renderTable(){const cs=pro;let html='<thead><tr><th>نشانه</th>'+vowels.map(v=>`<th>${v.label}</th>`).join('')+'</tr></thead><tbody>';for(const c of cs)html+=`<tr><th>${c}</th>${vowels.map(v=>`<td><button type="button" data-combo="${makeCombo(c,v)}">${makeCombo(c,v)}</button></td>`).join('')}</tr>`;$('friend-table').innerHTML=html}
   function initFriendBuilder(){
-    const consonants=['ب','پ','ت','ث','ج','چ','ح','خ','د','ذ','ر','ز','ژ','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ک','گ','ل','م','ن','ه','و','ی'];
-    let wanted='ب', lockedBuilder=false;
-    const slot=$('builder-slot'), choices=$('builder-choices');
+    const allTasks=pro.flatMap(letter=>vowels.map(vowel=>({letter,vowel,combo:makeCombo(letter,vowel)})));
+    let taskOrder=[],taskIndex=allTasks.length,currentTask=null,lockedBuilder=false;
+    const slot=$('builder-slot'),choices=$('builder-choices');
     function nextBuilder(){
-      lockedBuilder=false; wanted=consonants[Math.floor(Math.random()*consonants.length)];
-      const distractors=[]; while(distractors.length<3){const c=consonants[Math.floor(Math.random()*consonants.length)];if(c!==wanted&&!distractors.includes(c))distractors.push(c)}
-      $('builder-vowel').textContent='\u0627'; $('builder-result').textContent=wanted+'\u0627'; $('builder-prompt').textContent='\u062a\u0631\u06a9\u06cc\u0628 \u00ab'+wanted+'\u0627\u00bb \u0631\u0627 \u0628\u0633\u0627\u0632: \u0646\u0634\u0627\u0646\u0647\u0654 \u00ab'+wanted+'\u00bb \u0631\u0627 \u06a9\u0646\u0627\u0631 \u00ab\u0627\u00bb \u0628\u06af\u0630\u0627\u0631.'; slot.textContent='نشانه را اینجا بگذار';slot.classList.remove('filled','over');
+      lockedBuilder=false;
+      if(taskIndex>=taskOrder.length){taskOrder=allTasks.slice().sort(()=>Math.random()-.5);taskIndex=0}
+      currentTask=taskOrder[taskIndex++];
+      const wanted=currentTask.letter,vowel=currentTask.vowel,combo=currentTask.combo;
+      const distractors=pro.filter(letter=>letter!==wanted).sort(()=>Math.random()-.5).slice(0,3);
+      $('builder-vowel').textContent=vowel.label;
+      $('builder-result').textContent=combo;
+      $('builder-prompt').textContent='\u062a\u0631\u06a9\u06cc\u0628 \u00ab'+combo+'\u00bb \u0631\u0627 \u0628\u0633\u0627\u0632: \u0646\u0634\u0627\u0646\u0647\u0654 \u00ab'+wanted+'\u00bb \u0631\u0627 \u06a9\u0646\u0627\u0631 \u00ab'+vowel.label+'\u00bb \u0628\u06af\u0630\u0627\u0631.';
+      slot.textContent='\u0646\u0634\u0627\u0646\u0647 \u0631\u0627 \u0627\u06cc\u0646\u062c\u0627 \u0628\u06af\u0630\u0627\u0631';slot.classList.remove('filled','over');
       $('builder-feedback').textContent='';$('builder-feedback').className='builder-feedback';
-      choices.innerHTML=[wanted,...distractors].sort(()=>Math.random()-.5).map(c=>'<button type="button" class="builder-choice" draggable="true" data-letter="'+c+'" aria-label="نشانهٔ '+c+'؛ برای انتخاب بزن یا بکش">'+c+'</button>').join('');
+      choices.innerHTML=[wanted,...distractors].sort(()=>Math.random()-.5).map(letter=>'<button type="button" class="builder-choice" draggable="true" data-letter="'+letter+'" aria-label="'+letter+'">'+letter+'</button>').join('');
     }
-    function place(letter){if(lockedBuilder)return;lockedBuilder=true;slot.textContent=letter;slot.classList.add('filled');$('builder-result').textContent=letter+'ا';const ok=letter===wanted;$('builder-feedback').textContent=ok?'آفرین! '+letter+' را کنار ا گذاشتی و «'+letter+'ا» ساختی.':'این نشانه ترکیب خواسته‌شده را نمی‌سازد. دوباره تمرین کن!';$('builder-feedback').className='builder-feedback '+(ok?'good':'try');if(!ok){setTimeout(nextBuilder,1400)}}
-    choices.addEventListener('click',e=>{const b=e.target.closest('.builder-choice');if(b)place(b.dataset.letter)});
-    choices.addEventListener('dragstart',e=>{const b=e.target.closest('.builder-choice');if(b){e.dataTransfer.setData('text/plain',b.dataset.letter);e.dataTransfer.effectAllowed='move';b.classList.add('dragging')}});
-    choices.addEventListener('dragend',e=>{const b=e.target.closest('.builder-choice');if(b)b.classList.remove('dragging')});
+    function place(letter){
+      if(lockedBuilder)return;lockedBuilder=true;
+      const built=makeCombo(letter,currentTask.vowel),ok=letter===currentTask.letter;
+      slot.textContent=letter;slot.classList.add('filled');$('builder-result').textContent=built;
+      $('builder-feedback').textContent=ok?'\u0622\u0641\u0631\u06cc\u0646! \u062a\u0631\u06a9\u06cc\u0628 \u00ab'+currentTask.combo+'\u00bb \u0631\u0627 \u0633\u0627\u062e\u062a\u06cc.':'\u0627\u0634\u06a9\u0627\u0644\u06cc \u0646\u062f\u0627\u0631\u062f. \u0646\u0634\u0627\u0646\u0647\u0654 \u062f\u0631\u0633\u062a \u0631\u0627 \u0627\u0646\u062a\u062e\u0627\u0628 \u06a9\u0646.';
+      $('builder-feedback').className='builder-feedback '+(ok?'good':'try');
+    }
+    choices.addEventListener('click',e=>{const button=e.target.closest('.builder-choice');if(button)place(button.dataset.letter)});
+    choices.addEventListener('dragstart',e=>{const button=e.target.closest('.builder-choice');if(button){e.dataTransfer.setData('text/plain',button.dataset.letter);e.dataTransfer.effectAllowed='move';button.classList.add('dragging')}});
+    choices.addEventListener('dragend',e=>{const button=e.target.closest('.builder-choice');if(button)button.classList.remove('dragging')});
     slot.addEventListener('dragover',e=>{e.preventDefault();slot.classList.add('over')});slot.addEventListener('dragleave',()=>slot.classList.remove('over'));slot.addEventListener('drop',e=>{e.preventDefault();slot.classList.remove('over');place(e.dataTransfer.getData('text/plain'))});
     $('builder-next').addEventListener('click',nextBuilder);nextBuilder();
   }  function chooseOptions(correct,pool){const opts=[correct];while(opts.length<4){const candidate=pool[Math.floor(Math.random()*pool.length)];if(candidate!==correct&&!opts.includes(candidate))opts.push(candidate)}return opts.sort(()=>Math.random()-.5)}
